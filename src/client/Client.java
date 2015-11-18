@@ -7,20 +7,23 @@ import java.util.LinkedList;
 
 public class Client {
 
-    StockServerInterface server;
+    ChatServerInterface server;
     String username;
     ConnectFrame connectframe;
     ClientFrame clientframe;
-    int recent_message;
+    int lastMsgRecived;
     
     public void init(){
         connectframe=new ConnectFrame(this);
         connectframe.setVisible(true);
+        
     }
 
     public void connect(String username, String ip_address, Calendar date) {
         try {
-            server = (StockServerInterface) Naming.lookup("rmi://" + ip_address + "/StockService");
+            server = (ChatServerInterface) Naming.lookup("rmi://" + ip_address + "/StockService");
+            lastMsgRecived = server.get_num_messages(); //Marker for when user entered conversation
+                                                        //User will not recive messages prior to when they joined
             this.username = username;
             this.connectframe.setVisible(false);
             clientframe=new ClientFrame(this);
@@ -31,13 +34,25 @@ public class Client {
     }
 
 
-    public double[] get_new_messages() {
+    public Message get_new_messages() throws RemoteException {
+        int numMsgToRecive = server.get_num_messages() - lastMsgRecived;
+            
+        for(int i = lastMsgRecived; i<server.get_num_messages(); i++)
+        {
+            displayMsg(server.get_new_message(i));
+        }
+        
          try {
-            return server.get_new_message(recent_message);
+            return server.get_new_message(lastMsgRecived);
         } catch (Exception e) {
             System.out.println(e);
             return null;
         }       
+    }
+    
+    public void displayMsg(Message incoming)
+    {
+        
     }
     
     

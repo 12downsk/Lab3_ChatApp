@@ -8,17 +8,23 @@ import java.util.Vector;
 
 
 
-public class StockServer extends UnicastRemoteObject implements StockServerInterface {
+public class ChatServer extends UnicastRemoteObject implements ChatServerInterface {
     
     Vector<Message> log;
     int numMessages = 0;
 
-    StockServer() throws RemoteException {
+    ChatServer() throws RemoteException {
         super();
         
     }
-
     
+    @Override
+    public int get_num_messages()
+    {
+        return numMessages;
+    }
+    
+    @Override
     public void incoming_message(Message incoming) {
         log.add(incoming);
         numMessages++;

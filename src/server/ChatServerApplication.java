@@ -3,17 +3,17 @@ package server;
 import java.rmi.*;
 import java.rmi.registry.*;
 
-public class StockServerApplication {
+public class ChatServerApplication {
 
     public static void main(String args[]) {
         try {
             LocateRegistry.createRegistry(1099);
             Registry registry=LocateRegistry.getRegistry();
-            StockServer server=new StockServer();
-            StockServerInterface stockService = server;
-            registry.rebind("StockService", stockService);
+            ChatServer server=new ChatServer();
+            ChatServerInterface ChatService = server;
+            registry.rebind("chatService", chatService);
             System.out.println("Server is listening!");
-            StockFrame frame=new StockFrame(server);
+            ChatFrame frame=new ChatFrame(server);
             frame.setVisible(true);
             Thread.sleep(10*60 *  1000);
             System.out.println("Server stops");
