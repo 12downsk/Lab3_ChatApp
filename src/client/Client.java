@@ -48,11 +48,14 @@ public class Client {
 
     public void get_new_messages() throws RemoteException {
         int numMsgToRecive = server.get_num_messages() - lastMsgRecived;
-            
+        Message toBeDisplayed = new Message();
+        
         if(numMsgToRecive != 0)
         {
             for(int i = lastMsgRecived; i<server.get_num_messages(); i++)
-                displayMsg(server.get_new_message(i));
+            {
+                
+            }
         }  
     }
     

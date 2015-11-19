@@ -14,4 +14,6 @@ public interface ChatServerInterface extends Remote{
     public Message get_new_message(int MessageNum) throws RemoteException;
     
     public void incoming_message(Message incoming) throws RemoteException;
+    
+    public Message get_message(int num) throws RemoteException;
 }

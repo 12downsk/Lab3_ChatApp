@@ -32,7 +32,11 @@ public class ChatServer extends UnicastRemoteObject implements ChatServerInterfa
 
     @Override
     public Message get_new_message(int MessageNum) {
-    
         return log.elementAt(MessageNum);
+    }
+    
+    @Override
+    public Message get_message(int num){
+        return log.elementAt(num);
     }
 }

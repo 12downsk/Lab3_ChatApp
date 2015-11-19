@@ -1,5 +1,3 @@
-package server;
-
 import java.util.Date;
 
 public class Message{
