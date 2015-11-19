@@ -11,12 +11,13 @@ package server;
  */
 public class ChatFrame extends javax.swing.JFrame {
     
-    StockServer server;
+    ChatServer server;
 
     /**
      * Creates new form NewsFrame
      */
-    public ChatFrame(StockServer server) {
+    
+    public ChatFrame(ChatServer server) {
         this.server=server;
         initComponents();
     }
@@ -30,24 +31,25 @@ public class ChatFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        add_news_button = new javax.swing.JButton();
+        sendMsg = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
-        jTextField1 = new javax.swing.JTextField();
+        chatView = new javax.swing.JTextPane();
+        messageText = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Server");
 
-        add_news_button.setText("Send");
-        add_news_button.addActionListener(new java.awt.event.ActionListener() {
+        sendMsg.setText("Send");
+        sendMsg.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                add_news_buttonActionPerformed(evt);
+                sendMsgActionPerformed(evt);
             }
         });
 
-        jScrollPane1.setViewportView(jTextPane1);
+        chatView.setEditable(false);
+        jScrollPane1.setViewportView(chatView);
 
-        jTextField1.setToolTipText("Enter a message");
+        messageText.setToolTipText("Enter a message");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -57,9 +59,9 @@ public class ChatFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
+                        .addComponent(messageText, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(add_news_button))
+                        .addComponent(sendMsg))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
         );
@@ -70,30 +72,25 @@ public class ChatFrame extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(add_news_button, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(sendMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(messageText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void add_news_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_news_buttonActionPerformed
+    private void sendMsgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendMsgActionPerformed
 
-        double dow_jones_value=Double.parseDouble(this.dow_jones_value.getText());
-        double dow_jones_percentage=Double.parseDouble(this.dow_jones_percentage.getText());
-        double nasdaq_value=Double.parseDouble(this.nasdaq_value.getText());
-        double nasdaq_percentage=Double.parseDouble(this.nasdaq_percentage.getText());
-        this.server.update_dow_jones(dow_jones_value,dow_jones_percentage);
-        this.server.update_nasdaq(nasdaq_value, nasdaq_percentage);
-    }//GEN-LAST:event_add_news_buttonActionPerformed
+        //client.sendMessage(messageText);
+    }//GEN-LAST:event_sendMsgActionPerformed
 
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton add_news_button;
+    public javax.swing.JTextPane chatView;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextPane jTextPane1;
+    public javax.swing.JTextField messageText;
+    private javax.swing.JButton sendMsg;
     // End of variables declaration//GEN-END:variables
 }

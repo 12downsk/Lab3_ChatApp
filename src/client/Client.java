@@ -3,7 +3,7 @@ package client;
 import server.*;
 import java.rmi.*;
 import java.util.Calendar;
-import java.util.LinkedList;
+
 
 public class Client {
 
@@ -12,7 +12,7 @@ public class Client {
     ConnectFrame connectframe;
     ClientFrame clientframe;
     int lastMsgRecived;
-    
+
     public void init(){
         connectframe=new ConnectFrame(this);
         connectframe.setVisible(true);
@@ -21,7 +21,7 @@ public class Client {
 
     public void connect(String username, String ip_address, Calendar date) {
         try {
-            server = (ChatServerInterface) Naming.lookup("rmi://" + ip_address + "/StockService");
+            server = (ChatServerInterface) Naming.lookup("rmi://" + ip_address + "/ChatService");
             lastMsgRecived = server.get_num_messages(); //Marker for when user entered conversation
                                                         //User will not recive messages prior to when they joined
             this.username = username;
@@ -32,22 +32,28 @@ public class Client {
             System.out.println(e);
         }
     }
+    
+    public void sendMessage(String message)
+    {
+        java.util.Date date = new java.util.Date();
+        Message outgoing = new Message();
+        
+        outgoing.sender = username;
+        outgoing.date = date.getTime();
+        outgoing.message = message;
+        
+        server.incoming_message(outgoing);
+    }
 
 
-    public Message get_new_messages() throws RemoteException {
+    public void get_new_messages() throws RemoteException {
         int numMsgToRecive = server.get_num_messages() - lastMsgRecived;
             
-        for(int i = lastMsgRecived; i<server.get_num_messages(); i++)
+        if(numMsgToRecive != 0)
         {
-            displayMsg(server.get_new_message(i));
-        }
-        
-         try {
-            return server.get_new_message(lastMsgRecived);
-        } catch (Exception e) {
-            System.out.println(e);
-            return null;
-        }       
+            for(int i = lastMsgRecived; i<server.get_num_messages(); i++)
+                displayMsg(server.get_new_message(i));
+        }  
     }
     
     public void displayMsg(Message incoming)

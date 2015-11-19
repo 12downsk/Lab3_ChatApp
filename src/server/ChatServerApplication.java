@@ -11,7 +11,7 @@ public class ChatServerApplication {
             Registry registry=LocateRegistry.getRegistry();
             ChatServer server=new ChatServer();
             ChatServerInterface ChatService = server;
-            registry.rebind("chatService", chatService);
+            registry.rebind("chatService", ChatService);
             System.out.println("Server is listening!");
             ChatFrame frame=new ChatFrame(server);
             frame.setVisible(true);
