@@ -21,7 +21,7 @@ public class Client {
 
     public void connect(String username, String ip_address, Calendar date) {
         try {
-            server = (ChatServerInterface) Naming.lookup("rmi://" + ip_address + "/ChatService");
+            server = (ChatServerInterface) Naming.lookup("rmi://" + ip_address + "/chatService");
             lastMsgRecived = server.get_num_messages(); //Marker for when user entered conversation
                                                         //User will not recive messages prior to when they joined
             this.username = username;
@@ -50,5 +50,14 @@ public class Client {
     public String getNewMessage(int messageNum) throws RemoteException
     {
         return server.get_new_message(messageNum);
+    }
+    
+    public static void main(String args[]) {
+        try {
+            Client client=new Client();
+            client.init();  
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }
