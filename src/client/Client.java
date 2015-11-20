@@ -33,36 +33,22 @@ public class Client {
         }
     }
     
-    public void sendMessage(String message)
+    public void sendMessage(String message) throws RemoteException
     {
         java.util.Date date = new java.util.Date();
-        Message outgoing = new Message();
+        String outgoing;
         
-        outgoing.sender = username;
-        outgoing.date = date.getTime();
-        outgoing.message = message;
+        outgoing = date.toString() + "["+username+"]: " + message;
         
         server.incoming_message(outgoing);
     }
 
-
-    public void get_new_messages() throws RemoteException {
-        int numMsgToRecive = server.get_num_messages() - lastMsgRecived;
-        Message toBeDisplayed = new Message();
-        
-        if(numMsgToRecive != 0)
-        {
-            for(int i = lastMsgRecived; i<server.get_num_messages(); i++)
-            {
-                
-            }
-        }  
-    }
+    public int getNumMessages() throws RemoteException{
+        return server.get_num_messages();
+    } 
     
-    public void displayMsg(Message incoming)
+    public String getNewMessage(int messageNum) throws RemoteException
     {
-        
+        return server.get_new_message(messageNum);
     }
-    
-    
 }

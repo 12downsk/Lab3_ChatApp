@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 public class ClientFrame extends javax.swing.JFrame {
 
     Client client;
+    int lastMsgRecived;
     /**
      * Creates new form clientFrame
      */
@@ -31,10 +32,15 @@ public class ClientFrame extends javax.swing.JFrame {
 
             @Override
             public void run() {
+                try {
+                    lastMsgRecived = client.getNumMessages();
+                } catch (RemoteException ex) {
+                    Logger.getLogger(ClientFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 while(true) {
                     try {
-                        Thread.sleep(3000);
-                        client.get_new_messages();
+                        Thread.sleep(1000);
+                        get_new_messages();
                     } catch (InterruptedException e) {
                         
                     } catch (RemoteException ex) {
@@ -43,6 +49,24 @@ public class ClientFrame extends javax.swing.JFrame {
                 }
             }
         });
+       
+    public void get_new_messages() throws RemoteException {
+        
+        int numMsgToRecive = client.getNumMessages() - lastMsgRecived;
+        
+        if(numMsgToRecive != 0)
+        {
+            for(int i = lastMsgRecived + 1; i<client.getNumMessages(); i++)
+            {
+                displayMsg(client.getNewMessage(i));
+            }
+        }  
+    }   
+    
+    public void displayMsg(String message)
+    {
+        chatBox.append(message);
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,18 +78,18 @@ public class ClientFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        chatBox = new javax.swing.JTextArea();
         msgText = new javax.swing.JTextField();
         msgSend = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Client");
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(20);
-        jTextArea1.setLineWrap(true);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        chatBox.setEditable(false);
+        chatBox.setColumns(20);
+        chatBox.setLineWrap(true);
+        chatBox.setRows(5);
+        jScrollPane1.setViewportView(chatBox);
 
         msgSend.setText("Send");
         msgSend.addActionListener(new java.awt.event.ActionListener() {
@@ -105,14 +129,18 @@ public class ClientFrame extends javax.swing.JFrame {
 
     private void msgSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_msgSendActionPerformed
         
-        client.sendMessage(msgText.getText());
+        try {
+            client.sendMessage(msgText.getText());
+        } catch (RemoteException ex) {
+            Logger.getLogger(ClientFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_msgSendActionPerformed
 
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea chatBox;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton msgSend;
     private javax.swing.JTextField msgText;
     // End of variables declaration//GEN-END:variables

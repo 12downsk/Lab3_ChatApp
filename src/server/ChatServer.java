@@ -10,7 +10,7 @@ import java.util.Vector;
 
 public class ChatServer extends UnicastRemoteObject implements ChatServerInterface {
     
-    Vector<Message> log;
+    Vector<String> log;
     int numMessages = 0;
 
     ChatServer() throws RemoteException {
@@ -25,18 +25,14 @@ public class ChatServer extends UnicastRemoteObject implements ChatServerInterfa
     }
     
     @Override
-    public void incoming_message(Message incoming) {
+    public void incoming_message(String incoming) {
         log.add(incoming);
         numMessages++;
     }
 
     @Override
-    public Message get_new_message(int MessageNum) {
+    public String get_new_message(int MessageNum) {
         return log.elementAt(MessageNum);
     }
     
-    @Override
-    public Message get_message(int num){
-        return log.elementAt(num);
-    }
 }
