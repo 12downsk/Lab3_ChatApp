@@ -3,7 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/12dow_000/Desktop/News_Application/Lab3_ChatApp/src/client/Client.java</file>
+            <file>file:/E:/Documents/Lab3_ChatApp/src/server/ChatServer.java</file>
+            <file>file:/E:/Documents/Lab3_ChatApp/src/client/Client.java</file>
+            <file>file:/E:/Documents/Lab3_ChatApp/src/client/ClientFrame.java</file>
+            <file>file:/E:/Documents/Lab3_ChatApp/src/server/ChatServerApplication.java</file>
         </group>
     </open-files>
 </project-private>

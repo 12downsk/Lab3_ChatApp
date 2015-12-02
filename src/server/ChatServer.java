@@ -18,6 +18,11 @@ public class ChatServer extends UnicastRemoteObject implements ChatServerInterfa
         
     }
     
+    
+    public void newConnection(String User){
+        System.out.println(User + " has connected.");
+    }
+    
     @Override
     public int get_num_messages()
     {
@@ -26,13 +31,15 @@ public class ChatServer extends UnicastRemoteObject implements ChatServerInterfa
     
     @Override
     public void incoming_message(String incoming) {
-        log.add(incoming);
+        System.out.println(incoming);
+        //log.add(incoming);
         numMessages++;
     }
 
     @Override
     public String get_new_message(int MessageNum) {
-        return log.elementAt(MessageNum);
+        System.out.println(MessageNum);
+        return log.get(MessageNum);
     }
     
 }

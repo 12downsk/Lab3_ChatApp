@@ -28,6 +28,7 @@ public class Client {
             this.connectframe.setVisible(false);
             clientframe=new ClientFrame(this);
             this.clientframe.setVisible(true);
+            server.newConnection(username);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -38,7 +39,7 @@ public class Client {
         java.util.Date date = new java.util.Date();
         String outgoing;
         
-        outgoing = date.toString() + "["+username+"]: " + message;
+        outgoing = date.toString() + " ["+username+"]: " + message;
         
         server.incoming_message(outgoing);
     }

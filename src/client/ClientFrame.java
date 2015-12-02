@@ -53,9 +53,15 @@ public class ClientFrame extends javax.swing.JFrame {
     public void get_new_messages() throws RemoteException {
         
         int numMsgToRecive = client.getNumMessages() - lastMsgRecived;
+        System.out.println(client.getNumMessages() + " " + lastMsgRecived);
+        System.out.println(numMsgToRecive);
+       
+        if(numMsgToRecive == 1)
+            displayMsg(client.getNewMessage(lastMsgRecived+1));
         
-        if(numMsgToRecive != 0)
+        if(numMsgToRecive > 1)
         {
+            System.out.println("gnm");
             for(int i = lastMsgRecived + 1; i<client.getNumMessages(); i++)
             {
                 displayMsg(client.getNewMessage(i));
@@ -65,7 +71,7 @@ public class ClientFrame extends javax.swing.JFrame {
     
     public void displayMsg(String message)
     {
-        chatBox.append(message);
+        //chatBox.append(message);
     }
     
     /**
