@@ -39,7 +39,7 @@ public class ClientFrame extends javax.swing.JFrame {
                 }
                 while(true) {
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(100);
                         get_new_messages();
                     } catch (InterruptedException e) {
                         
@@ -57,8 +57,10 @@ public class ClientFrame extends javax.swing.JFrame {
         System.out.println(numMsgToRecive);
        
         if(numMsgToRecive == 1)
+        {
             displayMsg(client.getNewMessage(lastMsgRecived+1));
-        
+            lastMsgRecived++;
+        }
         if(numMsgToRecive > 1)
         {
             System.out.println("gnm");
@@ -71,7 +73,7 @@ public class ClientFrame extends javax.swing.JFrame {
     
     public void displayMsg(String message)
     {
-        //chatBox.append(message);
+        chatBox.append(message + "\n");
     }
     
     /**
